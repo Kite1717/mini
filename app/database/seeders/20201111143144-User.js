@@ -6,17 +6,11 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
    
       await queryInterface.bulkInsert('users', [{
-        fullName: 'CODE 35',
-        email: 'bilgi@code35.net',
-        phoneNumber : '',
+        fullName: 'Admin Minipoi',
+        email: 'minipoi@gmail.com',
+        username : 'minipoi',
         role: 0,
-        tcNo : "22222222222",
-        deviceIdNo : '3333333333',
-        password: bcrypt.hashSync('260620', +authConfig.rounds),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        isTipAdmin:true,
-
+        password: bcrypt.hashSync('Mminipoi2021', +authConfig.rounds),
       }], {});
   
   },
