@@ -70,75 +70,36 @@ app.put(
 );
 
 //sign up
-app.post("/new", async (req, res) => {
-  const { user: data } = req.body;
+app.post("/register", async (req, res) => {
+  const data = req.body;
 
   let password = bcrypt.hashSync(
-    data.email.substr(5),
+    data.password,
     Number.parseInt(authConfig.rounds)
   );
+  db.User.create({
+    fullName: data.fullName,
+    email: data.email,
+    role: 1,
+    password: password,
+    username : data.username
+  })
+    .then((user) => {
+      // We create the token
+      let token = jwt.sign({ user: user }, authConfig.secret, {
+        expiresIn: authConfig.expires,
+      });
 
-  // Create a user,
-  db.User.findOne({ where: { email: data.email }, paranoid: false }).then(
-    (user) => {
-      if (user && user.deletedAt !== null) {
-        db.User.update(
-          {
-            fullName: data.fullName,
-            email: data.email,
-            password: password,
-            address: data.address,
-            updatedAt: new Date(),
-            deleterUserId: null,
-            deletedAt: null,
-          },
-          { where: { id: user.id }, paranoid: false, returning: true }
-        )
-          .then(() => {
-            db.User.findOne({ where: { id: user.id } })
-              .then((result) => {
-                result.isTipAdmin = result.isTipAdmin ? "1" : "0";
-                return res.json({
-                  type: true,
-                  user: result,
-                });
-              })
-              .catch((e) => {
-                return res.json({
-                  type: false,
-                  data: e.toString(),
-                });
-              });
-          })
-          .catch((err) => {
-            return res.status(500).json(err);
-          });
-      } else {
-        db.User.create({
-          fullName: data.fullName,
-          email: data.email,
-          role: Number(data.role),
-          password: password,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        })
-          .then((user) => {
-            // We create the token
-            let token = jwt.sign({ user: user }, authConfig.secret, {
-              expiresIn: authConfig.expires,
-            });
+      user.password  = ""
 
-            return res.json({
-              user: user,
-              token: token,
-            });
-          })
-          .catch((err) => {
-            return res.status(500).json(err);
-          });
-      }
-    }
-  );
+      return res.json({
+        user: user,
+        token: token,
+      });
+    })
+    .catch((err) => {
+      return res.status(500).json(err);
+    });
 });
 
 // Login
@@ -157,6 +118,8 @@ app.post("/login", async (req, res) => {
             expiresIn: authConfig.expires,
           });
 
+          user.password = ""
+          
           return res.json({
             user: user,
             token: token,
