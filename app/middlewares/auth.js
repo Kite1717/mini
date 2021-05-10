@@ -21,6 +21,7 @@ const auth = (roles = []) => (req, res, next) => {
           .json({ msg: "There was a problem decoding the token", err });
       } else {
         req.user = decoded.user;
+
         //Roll Based
         if (roles.length && !roles.includes(Number(req.user.role)))
           res.status(401).json({ msg: "Access Denied" });

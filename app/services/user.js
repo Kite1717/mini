@@ -19,6 +19,25 @@ const app = express.Router();
 
 
 
+
+//get user by id
+app.get(
+  "/me",auth([UserRolls.Admin,UserRolls.User]),
+  async (req, res) => {
+   
+    if(req.user)
+    {
+      return res.json({
+        status:1,
+        user: req.user,
+      });
+    }
+    else{
+      return res.status(401).json({ msg: "There is no matching" });
+    }
+  }
+);
+
 //get user by id
 app.get(
   "/:id",
@@ -41,6 +60,69 @@ app.get(
       });
   }
 );
+
+
+
+// update password
+app.put("/change-password",auth([UserRolls.Admin,UserRolls.User]), async (req, res) => {
+
+  let { oldPass,newPass} = req.body;
+
+  console.log(oldPass,newPass)
+  // Search user
+  db.User.findOne({
+    where: {
+      email : req.user.email,
+    },
+  })
+    .then((user) => {
+        if (bcrypt.compareSync(oldPass, user.password)) {
+
+
+          // new password hashing
+          let uptPassword = bcrypt.hashSync(
+            newPass,
+            Number.parseInt(authConfig.rounds)
+          );
+          db.User.update({
+
+            password : uptPassword,
+          },{
+            where:{
+              email : req.user.email
+            },
+            returning: true,
+          }).then((newUser)=>{
+
+             //We create the token
+            let token = jwt.sign({ user: newUser }, authConfig.secret, {
+              expiresIn: authConfig.expires,
+            });
+
+            newUser.password = ""
+            
+            return res.json({
+              user: newUser,
+              token: token,
+            });
+
+          }).catch((err)=>{
+            return res.status(500).json(err);
+          })
+         
+        } else {
+          // Unauthorized Access
+          return res.status(401).json({ msg: "There is no matching" });
+        }
+
+    })
+    .catch((err) => {
+      return res.status(500).json(err);
+    });
+});
+
+
+
 
 //update user
 app.put(
@@ -134,6 +216,7 @@ app.post("/login", async (req, res) => {
       return res.status(500).json(err);
     });
 });
+
 
 
 
