@@ -23,7 +23,10 @@ module.exports = (sequelize, DataTypes) => {
       exerciseAttainmentName: {
         type: DataTypes.STRING,
       },
-      exerciseAttainmentName: {
+      exerciseAttainmentDes: {
+        type: DataTypes.STRING,
+      },
+      contScore: {
         type: DataTypes.REAL,
       },
 

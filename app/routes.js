@@ -1,5 +1,7 @@
 const user = require("./services/user");
 const blog = require("./services/blog");
+const code = require("./services/code");
+const book = require("./services/book");
 
 const express = require("express");
 const router = express.Router();
@@ -13,6 +15,8 @@ router.use("/files", express.static("uploads"));
 /**********SERVICES********/
 router.use("/api/user", user);
 router.use("/api/blog", blog);
+router.use("/api/book", book);
+router.use("/api/code", code);
 
 /**************************/
 

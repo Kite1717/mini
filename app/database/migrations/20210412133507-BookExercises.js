@@ -24,7 +24,10 @@ module.exports = {
       exerciseAttainmentName: {
         type: Sequelize.STRING,
       },
-      exerciseAttainmentName: {
+      exerciseAttainmentDes: {
+        type: Sequelize.STRING,
+      },
+      contScore: {
         type: Sequelize.REAL,
       },
     });

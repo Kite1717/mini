@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     tableName: "books",
-    paranoid: true,
-    timestamps: true,
+    paranoid: false,
+    timestamps: false,
   });
 
 

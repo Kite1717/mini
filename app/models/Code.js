@@ -17,13 +17,28 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      bookId: {
+        type: DataTypes.INTEGER,
+        references: { model: 'books', key: 'id' }
+      },
     },
     {
       tableName: "codes",
-      paranoid: true,
-      timestamps: true,
+      paranoid: false,
+      timestamps: false,
     }
   );
+
+
+  Code.associate = (models) => {
+    Code.belongsTo(models.Book, {
+      foreignKey: {
+        name: "bookId",
+        allowNull: false,
+      },
+      as: "books",
+    });
+  };
 
   return Code;
 };

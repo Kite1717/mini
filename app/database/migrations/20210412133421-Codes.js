@@ -18,6 +18,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
        defaultValue : false,
       },
+      bookId: {
+        type: Sequelize.INTEGER,
+        references: { model: 'books', key: 'id' }
+      },
     });
   },
 
