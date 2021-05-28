@@ -29,6 +29,7 @@ app.post(
     
 console.log(code,userId,"wwwww")
 
+let usedCode = code
     db.Code.findOne({
       where:{
         bookRegistrationCode:code,
@@ -46,7 +47,7 @@ console.log(code,userId,"wwwww")
 
           db.Code.update({isUsed:true},{
             where :{
-              bookRegistrationCode:code,
+              bookRegistrationCode:usedCode,
             }
           }).then(()=>{
             return res.json({
