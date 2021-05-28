@@ -40,29 +40,49 @@ let usedCode = code
       if(code)
       {
 
-        db.UBook.create({
-          userId,
-          bookId:code.bookId
-        }).then(()=>{
+        db.UBook.findOne({
+          where:{
+            bookId:code.bookId,
+          }
+        }).then((ubook)=>{
 
-          db.Code.update({isUsed:true},{
-            where :{
-              bookRegistrationCode:usedCode,
-            }
-          }).then(()=>{
+          if(ubook)
+          {
             return res.json({
-              type: true,
-              msg: "success",
+              type: false,
+              msg: "Code already uses",
             });
 
-          })
-        
-        }) .catch((e) => {
-          return res.json({
-            type: false,
-            data: e.toString(),
-          });
-        });
+          }else{
+
+
+            db.UBook.create({
+              userId,
+              bookId:code.bookId
+            }).then(()=>{
+    
+              db.Code.update({isUsed:true},{
+                where :{
+                  bookRegistrationCode:usedCode,
+                }
+              }).then(()=>{
+                return res.json({
+                  type: true,
+                  msg: "success",
+                });
+    
+              })
+            
+            }) .catch((e) => {
+              return res.json({
+                type: false,
+                data: e.toString(),
+              });
+            });
+          }
+
+        })
+  
 
       }
       else{
