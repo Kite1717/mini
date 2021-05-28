@@ -44,10 +44,18 @@ console.log(code,userId,"wwwww")
           bookId:code.bookId
         }).then(()=>{
 
-          return res.json({
-            type: true,
-            msg: "success",
-          });
+          db.Code.update({isUsed:true},{
+            where :{
+              bookRegistrationCode:code,
+            }
+          }).then(()=>{
+            return res.json({
+              type: true,
+              msg: "success",
+            });
+
+          })
+        
         }) .catch((e) => {
           return res.json({
             type: false,
