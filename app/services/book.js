@@ -20,6 +20,28 @@ const app = express.Router();
 
 
 
+
+app.get(
+  "/all",
+  async (req, res) => {
+   
+    db.Book.findAll()
+    .then((books) => {
+      return res.json({
+        type: true,
+        books,
+      });
+    })
+    .catch((e) => {
+      return res.json({
+        type: false,
+        data: e.toString(),
+      });
+    });
+  }
+  
+);
+
 //get user book by id
 app.get(
   "/:userId",
