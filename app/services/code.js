@@ -26,8 +26,6 @@ app.post(
   async (req, res) => {
    
     const{userId,code} = req.body
-    
-console.log(code,userId,"wwwww")
 
 let usedCode = code
     db.Code.findOne({

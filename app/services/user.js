@@ -218,6 +218,39 @@ app.post("/login", async (req, res) => {
 });
 
 
+app.post("/login-admin", async (req, res) => {
+  let { email, password } = req.body;
+  // Search user
+  db.User.findOne({
+    where: {
+      email,
+      role:0,
+    },
+  })
+    .then((user) => {
+        if (bcrypt.compareSync(password, user.password)) {
+          //We create the token
+          let token = jwt.sign({ user: user }, authConfig.secret, {
+            expiresIn: authConfig.expires,
+          });
+
+          user.password = ""
+          
+          return res.json({
+            user: user,
+            token: token,
+          });
+        } else {
+          // Unauthorized Access
+          return res.status(401).json({ msg: "Incorrect password" });
+        }
+
+    })
+    .catch((err) => {
+      return res.status(500).json(err);
+    });
+});
+
 
 
 module.exports = app;
