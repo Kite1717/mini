@@ -9,9 +9,6 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER
       },
-      bookName: {
-        type: DataTypes.STRING,
-      },
       bookCoverImage: {
         type: DataTypes.STRING,
       }
