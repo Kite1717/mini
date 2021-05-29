@@ -102,5 +102,42 @@ let usedCode = code
 );
 
 
+app.post(
+  "/add",
+  async (req, res) => {
+
+    const {bookId,codes} = req.body
+
+
+
+    //preparing
+
+    let data =[]
+    codes.forEach(el => {
+      
+      data.push({
+        bookRegistrationCode:el,
+        bookId,
+      })
+    });
+
+    db.Code.bulkCreate(data)
+    .then(() => {
+      return res.json({
+        type: true,
+      });
+    })
+    .catch((e) => {
+      return res.json({
+        type: false,
+        data: e.toString(),
+      });
+    });
+  }
+  
+);
+
+
+
 
 module.exports = app;
