@@ -41,6 +41,7 @@ let usedCode = code
         db.UBook.findOne({
           where:{
             bookId:code.bookId,
+            userId,
           }
         }).then((ubook)=>{
 
