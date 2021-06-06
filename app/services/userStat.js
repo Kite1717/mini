@@ -31,8 +31,7 @@ app.get(
     db.UStat.findAll({
       where:{
         userId :  req.params.userId,
-     
-        
+    
       },
      
     })
