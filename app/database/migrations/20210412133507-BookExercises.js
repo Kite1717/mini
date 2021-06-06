@@ -18,6 +18,9 @@ module.exports = {
       exerciseImg: {
         type: Sequelize.STRING,
       },
+      name: {
+        type: Sequelize.STRING,
+      },
       exerciseOrderNo: {
         type: Sequelize.INTEGER,
       },

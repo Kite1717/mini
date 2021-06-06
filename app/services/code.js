@@ -108,9 +108,6 @@ app.post(
   async (req, res) => {
 
     const {bookId,codes} = req.body
-
-
-
     //preparing
 
     let data =[]

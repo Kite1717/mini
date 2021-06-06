@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         references: { model: 'books', key: 'id' }
 
       },
+      name: {
+        type: DataTypes.STRING,
+      },
       exerciseImg: {
         type: DataTypes.STRING,
       },
@@ -32,8 +35,8 @@ module.exports = (sequelize, DataTypes) => {
 
   }, {
     tableName: "bookexercises",
-    paranoid: true,
-    timestamps: true,
+    paranoid: false,
+    timestamps: false,
   });
 
 

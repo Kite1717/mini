@@ -2,6 +2,7 @@ const user = require("./services/user");
 const blog = require("./services/blog");
 const code = require("./services/code");
 const book = require("./services/book");
+const bookEx = require("./services/bookEx");
 
 const express = require("express");
 const router = express.Router();
@@ -17,6 +18,7 @@ router.use("/api/user", user);
 router.use("/api/blog", blog);
 router.use("/api/book", book);
 router.use("/api/code", code);
+router.use("/api/book-ex", bookEx);
 
 /**************************/
 
