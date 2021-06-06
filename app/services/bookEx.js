@@ -29,8 +29,11 @@ app.get(
 
 
     db.BookEx.findAll({
+        order: [["exerciseOrderNo", "ASC"]],
       where:{
-        bookId :  req.params.bookId
+        bookId :  req.params.bookId,
+     
+        
       },
       include : [{
         model: db.Book,
