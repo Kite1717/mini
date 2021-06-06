@@ -21,47 +21,25 @@ const app = express.Router();
 
 
 
-app.get(
-  "/all",
-  async (req, res) => {
-   
-    db.Book.findAll()
-    .then((books) => {
-      return res.json({
-        type: true,
-        books,
-      });
-    })
-    .catch((e) => {
-      return res.json({
-        type: false,
-        data: e.toString(),
-      });
-    });
-  }
-  
-);
-
-//get user book by id
+//get user book ex by id
 app.get(
   "/:userId",
   async (req, res) => {
    
 
-    db.UBook.findAll({
+
+    db.UStat.findAll({
       where:{
-        userId :  req.params.userId
+        userId :  req.params.userId,
+     
+        
       },
-      include : [{
-        model: db.Book,
-        as : "books",
-        required: true
-       }]
+     
     })
-    .then((ubook) => {
+    .then((ex) => {
       return res.json({
         type: true,
-        ubook: ubook,
+        ex,
       });
     })
     .catch((e) => {
