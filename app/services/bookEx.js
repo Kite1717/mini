@@ -18,9 +18,6 @@ const app = express.Router();
 //**************Route Level 1
 
 
-
-
-
 //get user book ex by id
 app.get(
   "/:bookId",
