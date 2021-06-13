@@ -20,9 +20,6 @@ module.exports = (sequelize, DataTypes) => {
       exerciseImg: {
         type: DataTypes.STRING,
       },
-      exerciseOrderNo: {
-        type: DataTypes.INTEGER,
-      },
       exerciseAttainmentName: {
         type: DataTypes.STRING,
       },

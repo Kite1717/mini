@@ -21,9 +21,6 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
-      exerciseOrderNo: {
-        type: Sequelize.INTEGER,
-      },
       exerciseAttainmentName: {
         type: Sequelize.STRING,
       },
