@@ -49,6 +49,67 @@ app.get("/:bookId", async (req, res) => {
     });
 });
 
+
+app.post("/all-ex-with-check", async (req, res) => {
+  const {userId,bookId} = req.body
+  db.BookEx.findAll({
+    order: [["id", "ASC"]],
+    where: {
+      bookId,
+    },
+    include: [
+      {
+        model: db.Book,
+        as: "books",
+        required: true,
+      },
+    ],
+  })
+    .then(async (bookex) => {
+
+
+      const temp = bookex.map(function(item){ return item.toJSON() });
+      for(let i = 0 ; i < temp.length ; i++)
+      {
+        await db.Answer.findOne({
+          where: {
+            userId,
+            exerciseId : temp[i].id
+          },
+        })
+          .then((ans) => {
+
+          
+            if (!ans) {
+              // not found
+              temp[i].status = 0
+
+             
+            } else if (ans && ans.isTrue) {
+              // correct
+              temp[i].status = 1
+            } else if (ans && !ans.isTrue) {
+              // wrong
+              temp[i].status = 2
+            }
+          })
+      }
+
+      
+      return res.json({
+        type: true,
+        bookex: temp,
+      });
+    })
+    .catch((e) => {
+      return res.json({
+        type: false,
+        data: e.toString(),
+      });
+    });
+});
+
+
 app.post("/add-exercise", upload.single("file"), async (req, res) => {
   try {
     const file = req.file;
