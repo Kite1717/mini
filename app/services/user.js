@@ -179,35 +179,35 @@ app.post("/register", async (req, res) => {
           userId:user.id,
           attainmentName: "DİL BECERİSİ",
           attainmentAmount : 0,
-          attainmentDes : "İçinde bulunulan gelişim basamağına uygun olarak çıkarılan sesleri ve üretilen sözel ifadelerin gelişimini ifade etmektedir. Sözel akıcılık ve kelimeleri kullanma becerisini de kapsamaktadır.",
+          attainmentDescription : "İçinde bulunulan gelişim basamağına uygun olarak çıkarılan sesleri ve üretilen sözel ifadelerin gelişimini ifade etmektedir. Sözel akıcılık ve kelimeleri kullanma becerisini de kapsamaktadır.",
 
         },
         {
           userId:user.id,
           attainmentName: "BÜTÜNSEL & GÖRSEL ALGI",
           attainmentAmount : 0,
-          attainmentDes : "Görsel işlemleme, akıl yürütme, uyaranın bütün olarak değerlendirilmesini ifade etmektedir.",
+          attainmentDescription : "Görsel işlemleme, akıl yürütme, uyaranın bütün olarak değerlendirilmesini ifade etmektedir.",
           
         },
         {
           userId:user.id,
           attainmentName: "PARÇA BÜTÜN İLİŞKİSİ",
           attainmentAmount : 0,
-          attainmentDes : "Soyut akıl yürütme, görsel uyaranın daha küçük bir parçası ve bütünü arasındaki ilişkiyi kavrama becerisini ifade etmektedir.",
+          attainmentDescription : "Soyut akıl yürütme, görsel uyaranın daha küçük bir parçası ve bütünü arasındaki ilişkiyi kavrama becerisini ifade etmektedir.",
           
         },
         {
           userId:user.id,
           attainmentName: "AYIRT ETME & ORGANİZASYON",
           attainmentAmount : 0,
-          attainmentDes : "Görsel uyaranların birbirinden farklılaştıkları özellikleri algılamayı ve bunlara göre bir yapı oluşturmayı ifade etmektedir.",
+          attainmentDescription : "Görsel uyaranların birbirinden farklılaştıkları özellikleri algılamayı ve bunlara göre bir yapı oluşturmayı ifade etmektedir.",
           
         },
         {
           userId:user.id,
           attainmentName: "UZUN SÜRELİ DİKKAT",
           attainmentAmount : 0,
-          attainmentDes : "Dikkat ve konsantrasyonun belli bir uyaran üzerinde uzun süre sürdürülmesini ifade etmektedir.",
+          attainmentDescription : "Dikkat ve konsantrasyonun belli bir uyaran üzerinde uzun süre sürdürülmesini ifade etmektedir.",
           
         },
       ])
