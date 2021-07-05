@@ -132,7 +132,6 @@ app.post("/add-exercise", upload.single("file"), async (req, res) => {
       });
     }).catch((e)=>{
 
-      console.log(JSON.stringify(e,null,2),"wwwwwwww")
       return res.status(500).json({
         type: false,
         data : e.toString()

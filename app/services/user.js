@@ -174,10 +174,53 @@ app.post("/register", async (req, res) => {
 
       user.password  = ""
 
-      return res.json({
-        user: user,
-        token: token,
+      db.UStat.bulkCreate([
+        {
+          userId:user.id,
+          attainmentName: "DİL BECERİSİ",
+          attainmentAmount : 0,
+          attainmentDes : "İçinde bulunulan gelişim basamağına uygun olarak çıkarılan sesleri ve üretilen sözel ifadelerin gelişimini ifade etmektedir. Sözel akıcılık ve kelimeleri kullanma becerisini de kapsamaktadır.",
+
+        },
+        {
+          userId:user.id,
+          attainmentName: "BÜTÜNSEL & GÖRSEL ALGI",
+          attainmentAmount : 0,
+          attainmentDes : "Görsel işlemleme, akıl yürütme, uyaranın bütün olarak değerlendirilmesini ifade etmektedir.",
+          
+        },
+        {
+          userId:user.id,
+          attainmentName: "PARÇA BÜTÜN İLİŞKİSİ",
+          attainmentAmount : 0,
+          attainmentDes : "Soyut akıl yürütme, görsel uyaranın daha küçük bir parçası ve bütünü arasındaki ilişkiyi kavrama becerisini ifade etmektedir.",
+          
+        },
+        {
+          userId:user.id,
+          attainmentName: "AYIRT ETME & ORGANİZASYON",
+          attainmentAmount : 0,
+          attainmentDes : "Görsel uyaranların birbirinden farklılaştıkları özellikleri algılamayı ve bunlara göre bir yapı oluşturmayı ifade etmektedir.",
+          
+        },
+        {
+          userId:user.id,
+          attainmentName: "UZUN SÜRELİ DİKKAT",
+          attainmentAmount : 0,
+          attainmentDes : "Dikkat ve konsantrasyonun belli bir uyaran üzerinde uzun süre sürdürülmesini ifade etmektedir.",
+          
+        },
+      ])
+      .then(() => {
+        return res.json({
+          user: user,
+          token: token,
+        });
+      })
+      .catch((e) => {
+        return res.status(500).json(e);
       });
+     
     })
     .catch((err) => {
       return res.status(500).json(err);
